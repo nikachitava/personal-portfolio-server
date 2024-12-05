@@ -1,4 +1,5 @@
 import AdminDashboard from "../models/admin_dashboard.model.js";
+import jwt from "jsonwebtoken";
 
 export const getAdmins = async (req, res) => {
 	try {
@@ -13,6 +14,30 @@ export const addAdmin = async (req, res) => {
 	try {
 		const newAdmin = await AdminDashboard.create(req.body);
 		res.status(200).json(newAdmin);
+	} catch (error) {
+		res.status(500).json({ message: error.message });
+	}
+};
+
+export const authAdmin = async (req, res) => {
+	try {
+		const { email, password } = req.body;
+
+		if (!email) res.status(400).json({ mesage: "Email is required" });
+		if (!password) res.status(400).json({ mesage: "Password is required" });
+
+		const admin = await AdminDashboard.findOne({ email: email });
+
+		if (password == admin.password) {
+			const token = jwt.sign(
+				{ id: admin._id, email: admin.email },
+				process.env.SECRET_KEY,
+				{ expiresIn: "1h" }
+			);
+			res.status(200).json({ message: "Authorized successfully", token });
+		} else {
+			res.status(401).json({ message: "Invalid admin password" });
+		}
 	} catch (error) {
 		res.status(500).json({ message: error.message });
 	}
