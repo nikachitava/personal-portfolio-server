@@ -17,6 +17,11 @@ const ProjectSchema = mongoose.Schema(
 			required: [true, "Please enter github link"],
 		},
 
+		tech_stack: {
+			type: [String],
+			required: [true, "Please enter the tech stack"],
+		},
+
 		live_link: {
 			type: String,
 			required: false,
