@@ -4,7 +4,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
 
-import projectsRoute from "./routes/projects.route.js";
+import projectsRoutes from "./routes/projects.route.js";
+import adminRoutes from "./routes/admin_dashboard.route.js";
 
 const app = express();
 
@@ -33,6 +34,7 @@ mongoose
 		console.log("Connected failed");
 	});
 
-app.use("/projects", projectsRoute);
+app.use("/projects", projectsRoutes);
+app.use("/admin", adminRoutes);
 
 export default app;
