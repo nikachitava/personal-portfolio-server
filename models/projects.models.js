@@ -18,7 +18,7 @@ const ProjectSchema = mongoose.Schema(
 		},
 
 		tech_stack: {
-			type: [String],
+			type: String,
 			required: [true, "Please enter the tech stack"],
 		},
 
@@ -28,7 +28,7 @@ const ProjectSchema = mongoose.Schema(
 		},
 
 		image: {
-			type: String,
+			type: [String],
 			required: false,
 		},
 	},
