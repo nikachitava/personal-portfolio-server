@@ -18,6 +18,16 @@ export const addProject = async (req, res) => {
 	}
 };
 
+export const getProject = async (req, res) => {
+	try {
+		const { id } = req.params;
+		const projects = await Project.findOne({ _id: id });
+		res.status(200).json(projects);
+	} catch (error) {
+		res.status(500).json({ message: error.message });
+	}
+};
+
 export const deleteProject = async (req, res) => {
 	try {
 		const { id } = req.params;
