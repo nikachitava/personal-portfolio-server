@@ -27,18 +27,23 @@ app.get("/", (req, res) => {
 	res.send("Hello from Node API Server Updated");
 });
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+
 mongoose
 	.connect(process.env.MONGO_URI)
 	.then(() => {
 		console.log("Connected to database");
-		app.listen(PORT, () => {
-			console.log(`Server running on port ${PORT}`);
-		});
+		// app.listen(PORT, () => {
+		// 	console.log(`Server running on port ${PORT}`);
+		// });
 	})
 	.catch(() => {
 		console.log("Connected failed");
 	});
+
+app.listen(PORT, () => {
+	console.log(`Server running on port ${PORT}`);
+});
 
 app.use("/projects", projectsRoutes);
 app.use("/admin", adminRoutes);
