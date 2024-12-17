@@ -14,10 +14,17 @@ app.use((req, res, next) => {
 	next();
 });
 
+// app.use(
+// 	cors({
+// 		origin: "https://personal-portfolio-sigma-dusky.vercel.app",
+// 		// origin: process.env.CLIENT_URI
+// 		credentials: true,
+// 	})
+// );
+
 app.use(
 	cors({
-		origin: "https://personal-portfolio-sigma-dusky.vercel.app/",
-		// origin: process.env.CLIENT_URI
+		origin: "https://personal-portfolio-sigma-dusky.vercel.app",
 		credentials: true,
 	})
 );
