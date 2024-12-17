@@ -16,7 +16,8 @@ app.use((req, res, next) => {
 
 app.use(
 	cors({
-		origin: process.env.CLIENT_URI,
+		origin: "https://personal-portfolio-sigma-dusky.vercel.app/",
+		// origin: process.env.CLIENT_URI
 		credentials: true,
 	})
 );

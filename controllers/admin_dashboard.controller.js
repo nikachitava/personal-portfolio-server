@@ -31,7 +31,8 @@ export const authAdmin = async (req, res) => {
 		if (password == admin.password) {
 			const token = jwt.sign(
 				{ id: admin._id, email: admin.email },
-				process.env.SECRET_KEY,
+				// process.env.SECRET_KEY,
+				"STRONG_SECRET_KEY_FOR_ADMIN_dashboard!",
 				{ expiresIn: "1h" }
 			);
 			res.status(200).json({ message: "Authorized successfully", token });
