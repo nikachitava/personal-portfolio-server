@@ -27,7 +27,7 @@ app.get("/", (req, res) => {
 	res.send("Hello from Node API Server Updated");
 });
 
-const PORT = 8080;
+const PORT = 3000;
 mongoose
 	.connect(process.env.MONGO_URI)
 	.then(() => {
