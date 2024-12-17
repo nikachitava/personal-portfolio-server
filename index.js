@@ -38,7 +38,7 @@ mongoose
 		// });
 	})
 	.catch(() => {
-		console.log("Connected faileddd");
+		console.log("Connected failedd");
 	});
 
 app.listen(PORT, () => {
