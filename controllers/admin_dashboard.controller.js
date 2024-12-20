@@ -23,22 +23,36 @@ export const authAdmin = async (req, res) => {
 	try {
 		const { email, password } = req.body;
 
-		if (!email) res.status(400).json({ mesage: "Email is required" });
-		if (!password) res.status(400).json({ mesage: "Password is required" });
+		if (!email)
+			return res.status(400).json({ mesage: "Email is required" });
+		if (!password)
+			return res.status(400).json({ mesage: "Password is required" });
 
 		const admin = await AdminDashboard.findOne({ email: email });
 
-		if (password == admin.password) {
-			const token = jwt.sign(
-				{ id: admin._id, email: admin.email },
-				// process.env.SECRET_KEY,
-				"STRONG_SECRET_KEY_FOR_ADMIN_dashboard!",
-				{ expiresIn: "1h" }
-			);
-			res.status(200).json({ message: "Authorized successfully", token });
-		} else {
-			res.status(401).json({ message: "Invalid admin password" });
-		}
+		if (!admin)
+			return res
+				.status(401)
+				.json({
+					message: "Invalid admin email",
+					errorType: "INVALID_EMAIL",
+				});
+
+		if (admin.password !== password)
+			return res
+				.status(401)
+				.json({
+					message: "Invalid admin password",
+					errorType: "INVALID_PASSWORD",
+				});
+
+		const token = jwt.sign(
+			{ id: admin._id, email: admin.email },
+			// process.env.SECRET_KEY,
+			"STRONG_SECRET_KEY_FOR_ADMIN_dashboard!",
+			{ expiresIn: "1h" }
+		);
+		res.status(200).json({ message: "Authorized successfully", token });
 	} catch (error) {
 		res.status(500).json({ message: error.message });
 	}
