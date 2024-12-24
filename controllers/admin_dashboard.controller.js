@@ -31,25 +31,20 @@ export const authAdmin = async (req, res) => {
 		const admin = await AdminDashboard.findOne({ email: email });
 
 		if (!admin)
-			return res
-				.status(401)
-				.json({
-					message: "Invalid admin email",
-					errorType: "INVALID_EMAIL",
-				});
+			return res.status(401).json({
+				message: "Invalid admin email",
+				errorType: "INVALID_EMAIL",
+			});
 
 		if (admin.password !== password)
-			return res
-				.status(401)
-				.json({
-					message: "Invalid admin password",
-					errorType: "INVALID_PASSWORD",
-				});
+			return res.status(401).json({
+				message: "Invalid admin password",
+				errorType: "INVALID_PASSWORD",
+			});
 
 		const token = jwt.sign(
 			{ id: admin._id, email: admin.email },
-			// process.env.SECRET_KEY,
-			"STRONG_SECRET_KEY_FOR_ADMIN_dashboard!",
+			process.env.SECRET_KEY,
 			{ expiresIn: "1h" }
 		);
 		res.status(200).json({ message: "Authorized successfully", token });
